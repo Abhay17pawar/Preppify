@@ -31,23 +31,20 @@ import { UserButton } from "@clerk/nextjs"
 
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-  const [isMobile, setIsMobile] = useState(false)
-
+  
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
       if (window.innerWidth < 768) {
         setIsSidebarOpen(false)
       }
     }
-
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-
-    return () => {
-      window.removeEventListener("resize", checkMobile)
-    }
+  
+    checkMobile() // Run on initial mount
+    window.addEventListener('resize', checkMobile)
+  
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-gray-100">
